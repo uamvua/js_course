@@ -78,7 +78,7 @@ function returnCounter(number) {
  */
 function returnArgumentsArray() {
   var mas = [];
-  for(i=0; i<arguments.length; i++) {
+  for(var i=0; i<arguments.length; i++) {
     mas[i] = arguments[i];    
   }
   return mas;
