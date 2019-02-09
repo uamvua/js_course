@@ -31,6 +31,7 @@ function returnFirstArgument(a) {
    sumWithDefaults(10) вернет 110
  */
 function sumWithDefaults(a, b) {
+  b=b||100;
   return a+b;
 }
 
@@ -43,9 +44,8 @@ function sumWithDefaults(a, b) {
    returnFnResult(() => 'привет') вернет 'привет'
  */
 function returnFnResult(fn) {
-  console.log(fn());
+  return fn();
 }
-returnFnResult(() => 'привет')
 
 /*
  Задание 4:
@@ -61,6 +61,7 @@ returnFnResult(() => 'привет')
    console.log(f()); // выведет 13
  */
 function returnCounter(number) {
+  number=number||0;
   return function F() {
     return ++number;
   }
@@ -76,9 +77,11 @@ function returnCounter(number) {
    returnArgumentsArray(1, 2, 3) вернет [1, 2, 3]
  */
 function returnArgumentsArray() {
+  var mas = [];
   for(i=0; i<arguments.length; i++) {
-    console.log(arguments[i]);
+    mas[i] = arguments[i];    
   }
+  return mas;
 }
 
 /*
