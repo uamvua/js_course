@@ -32,7 +32,17 @@ function map(array, fn) {
  Напишите аналог встроенного метода reduce для работы с массивами
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
  */
-function reduce(array, fn, initial) {
+function reduce(array, fn, initial=array[0]) {
+  if (initial === array[0]) {
+    for (var i=1; i<array.length; i++){
+      initial = fn(initial, array[i], i, array);
+    }
+  }else{
+    for (var i=0; i<array.length; i++){
+      initial = fn(initial, array[i], i, array);
+    }
+  }
+  return initial;
 }
 
 /*
