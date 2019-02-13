@@ -33,16 +33,17 @@ function map(array, fn) {
  Посмотрите как работает reduce и повторите это поведение для массива, который будет передан в параметре array
  */
 function reduce(array, fn, initial=array[0]) {
-  if (initial === array[0]) {
-    for (var i=1; i<array.length; i++){
-      initial = fn(initial, array[i], i, array);
+    if (initial === array[0]) {
+        for (var i=1; i<array.length; i++){
+          initial = fn(initial, array[i], i, array);
+        }
+    }else{
+        for (var i=0; i<array.length; i++){
+          initial = fn(initial, array[i], i, array);
+        }
     }
-  }else{
-    for (var i=0; i<array.length; i++){
-      initial = fn(initial, array[i], i, array);
-    }
-  }
-  return initial;
+
+      return initial;
 }
 
 /*
@@ -54,6 +55,13 @@ function reduce(array, fn, initial=array[0]) {
    upperProps({ name: 'Сергей', lastName: 'Петров' }) вернет ['NAME', 'LASTNAME']
  */
 function upperProps(obj) {
+    var res=[];
+    var mas = Object.keys(obj);  
+    for (var i=0; i<mas.length; i++){
+      res.push(mas[i].toUpperCase());
+    }
+
+    return res;
 }
 
 /*
