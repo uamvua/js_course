@@ -7,9 +7,9 @@
  Посмотрите как работает forEach и повторите это поведение для массива, который будет передан в параметре array
  */
 function forEach(array, fn) {
-  for(var i=0; i<array.length; i++){
-    fn(array[i], i, array);
-  } 
+    for (var i=0; i<array.length; i++) {
+        fn(array[i], i, array);
+    } 
 }
 
 /*
@@ -18,12 +18,14 @@ function forEach(array, fn) {
  Напишите аналог встроенного метода map для работы с массивами
  Посмотрите как работает map и повторите это поведение для массива, который будет передан в параметре array
  */
-function map(array, fn) {
-  var newArray = [];
-  for (var i=0; i<array.length; i++){    
-    newArray.push (fn(array[i], i, array));
-  }
-  return newArray;
+function map(array, fn) {    
+    var newArray = [];
+
+    for (var i=0; i<array.length; i++) {    
+        newArray.push (fn(array[i], i, array));
+    }
+
+    return newArray;
 }
 
 /*
@@ -34,16 +36,16 @@ function map(array, fn) {
  */
 function reduce(array, fn, initial=array[0]) {
     if (initial === array[0]) {
-        for (var i=1; i<array.length; i++){
-          initial = fn(initial, array[i], i, array);
+        for (var i=1; i<array.length; i++) {
+            initial = fn(initial, array[i], i, array);
         }
-    }else{
-        for (var i=0; i<array.length; i++){
-          initial = fn(initial, array[i], i, array);
+    } else {
+        for (i=0; i<array.length; i++) {
+            initial = fn(initial, array[i], i, array);
         }
     }
 
-      return initial;
+    return initial;
 }
 
 /*
@@ -56,9 +58,10 @@ function reduce(array, fn, initial=array[0]) {
  */
 function upperProps(obj) {
     var res=[];
-    var mas = Object.keys(obj);  
-    for (var i=0; i<mas.length; i++){
-      res.push(mas[i].toUpperCase());
+    var mas = Object.keys(obj);
+
+    for (var i=0; i<mas.length; i++) {
+        res.push(mas[i].toUpperCase());
     }
 
     return res;
