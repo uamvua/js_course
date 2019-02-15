@@ -18,23 +18,20 @@
  */
 function isAllTrue(array, fn) {
   let count = 0;
-  try {
+  
     if ((Array.isArray(array)==false) || (array.length==0)) {
      throw new Error ("empty array");
     }
     if (typeof(fn) !== 'function' ) {
       throw new Error ("fn is not a function");
      }
-  } catch (e) { 
-    console.log(e.message);
-  }
- 
-  for (i=0; i<array.length; i++) {    
-    if (fn(array[i]) == true) {
+   
+  for (let i=0; i<array.length; i++) {    
+    if (fn(array[i]) === true) {
       count++;
     }    
   }
-  let result = (count==array.length) ? true : false;
+  let result = (count === array.length) ? true : false;
   return result;
 }
 
@@ -56,18 +53,15 @@ function isAllTrue(array, fn) {
  */
 function isSomeTrue(array, fn) {
   let count = 0;
-  try {
-    if ((Array.isArray(array)==false) || (array.length==0)) {
-     throw new Error ("empty array");
-    }
-    if (typeof(fn) !== 'function' ) {
-      throw new Error ("fn is not a function");
-     }
-  } catch (e) { 
-    console.log(e.message);
-  }
  
-  for (i=0; i<array.length; i++) {    
+  if ((Array.isArray(array)==false) || (array.length==0)) {
+    throw new Error ("empty array");
+  }
+  if (typeof(fn) !== 'function' ) {
+    throw new Error ("fn is not a function");
+    }
+  
+  for (let i=0; i<array.length; i++) {    
     if (fn(array[i]) == true) {
       count++;
     }    
