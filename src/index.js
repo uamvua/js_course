@@ -19,7 +19,7 @@
 function isAllTrue(array, fn) {
     let count = 0;
   
-    if ((Array.isArray(array)==false) || (array.length==0)) {
+    if (((array instanceof Array)===false) || (array.length==0)) {
         throw new Error ('empty array');
     }
     if (typeof(fn) !== 'function' ) {
@@ -55,7 +55,7 @@ function isAllTrue(array, fn) {
 function isSomeTrue(array, fn) {
     let count = 0;
  
-    if ((Array.isArray(array)==false) || (array.length==0)) {
+    if (((array instanceof Array)===false) || (array.length==0)) {
         throw new Error ('empty array');
     }
     if (typeof(fn) !== 'function' ) {
