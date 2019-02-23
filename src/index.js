@@ -10,11 +10,13 @@
  Пример:
    createDivWithText('loftschool') // создаст элемент div, поместит в него 'loftschool' и вернет созданный элемент
  */
-function createDivWithText(text) {
+function createDivWithText(text) {  
     var div = document.createElement('div');
-        div.textContent = text;
-        return div;
-    }
+
+    div.textContent = text;
+    
+    return div;
+}
 
 /*
  Задание 2:
@@ -49,13 +51,14 @@ function prepend(what, where) {
  */
 function findAllPSiblings(where) {
     var array = [];
-    for (let i=0; i < where.children.length; i++) {
-      if ((where.children[i].tagName) === "P") {
-        array.push(where.children[i].previousElementSibling);
-      }
-    }
-    return array;
 
+    for (let i=0; i < where.children.length; i++) {
+        if ((where.children[i].tagName) === 'P') {
+            array.push(where.children[i].previousElementSibling);
+        }
+    }
+
+    return array;
 }
 
 /*
@@ -98,11 +101,11 @@ function findError(where) {
    должно быть преобразовано в <div></div><p></p>
  */
 function deleteTextNodes(where) {
-  for (const node of where.childNodes) {
-    if (node.nodeType === 3) {
-      where.removeChild(node);
+    for (const node of where.childNodes) {
+        if (node.nodeType === 3) {
+            where.removeChild(node);
+        }
     }
-  }
 }
 
 /*
@@ -117,6 +120,16 @@ function deleteTextNodes(where) {
    должно быть преобразовано в <span><div><b></b></div><p></p></span>
  */
 function deleteTextNodesRecursive(where) {
+    var child = where.childNodes;
+
+    for (let i = 0; i < child.length; i++) {
+        if (child[i].nodeType === 3) {
+            child[i].remove();
+            i--;
+        } else if (child[i].hasChildNodes() === true) {
+            deleteTextNodesRecursive(child[i]);
+        }
+    }
 }
 
 /*
