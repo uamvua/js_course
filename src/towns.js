@@ -44,7 +44,20 @@ function loadTowns() {
     xhr.send();
     xhr.addEventListener('load', () => {          
         const towns = xhr.response;
+
+        towns.sort((a, b) => {           
+          if (a.name < b.name) { 
+              return -1 
+          } 
+          if (a.name > b.name) {
+              return 1 
+          }
+
+          return 0;
+        })
+
         const mas = [];
+        
         for (let i=0; i<towns.length; i++) {
           mas.push(towns[i].name);
         }
