@@ -1,3 +1,4 @@
+import {loadAndSortTowns as loadTowns} from "./index";
 /*
  Страница должна предварительно загрузить список городов из
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
@@ -36,15 +37,15 @@ const homeworkContainer = document.querySelector('#homework-container');
  Массив городов пожно получить отправив асинхронный запрос по адресу
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
  */
+/*
 function loadTowns() {
-  return new Promise((resolve) => {
+    return new Promise((resolve) => {
     const xhr = new XMLHttpRequest();
     xhr.open('GET', 'https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json');
     xhr.responseType = 'json';
     xhr.send();
     xhr.addEventListener('load', () => {          
         const towns = xhr.response;
-
         towns.sort((a, b) => {           
           if (a.name < b.name) { 
               return -1 
@@ -64,7 +65,7 @@ function loadTowns() {
         resolve(mas);
     })
   })
-}
+}*/
 
 /*
  Функция должна проверять встречается ли подстрока chunk в строке full
@@ -95,6 +96,41 @@ filterInput.addEventListener('keyup', function() {
     // это обработчик нажатия кливиш в текстовом поле
 });
 
+
+
+loadTowns()
+    .then((mas) => {
+
+        const towns = [];
+
+        for (let i=0; i<mas.length; i++) {
+          towns.push(mas[i].name);
+        }
+
+        loadingBlock.style.display = 'none';  
+        filterBlock.style.display = 'block';
+        filterInput.addEventListener('keyup', function() {
+                        
+            const value = filterInput.value;
+
+            filterResult.innerHTML = ''; 
+           
+            for (let i=0; i<towns.length; i++) {
+
+                if (isMatching(towns[i], value)) {               
+                    let div = document.createElement('div');
+                    div.textContent = towns[i];
+                    filterResult.appendChild(div);
+                    console.log(towns[i]);           
+                }
+
+              if (value ==='') {
+                filterResult.innerHTML = '';
+              }              
+            }
+          })
+    })
+        
 export {
     loadTowns,
     isMatching
