@@ -57,7 +57,7 @@ function loadTowns() {
         })
 
         const mas = [];
-        
+
         for (let i=0; i<towns.length; i++) {
           mas.push(towns[i].name);
         }
@@ -78,6 +78,8 @@ function loadTowns() {
    isMatching('Moscow', 'Moscov') // false
  */
 function isMatching(full, chunk) {
+    const res = (full.toLowerCase().indexOf(chunk.toLowerCase()) != -1) ? true : false;
+    return res;
 }
 
 /* Блок с надписью "Загрузка" */
