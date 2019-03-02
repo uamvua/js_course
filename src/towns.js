@@ -1,4 +1,4 @@
-import {loadAndSortTowns as loadTowns} from "./index";
+import { loadAndSortTowns as loadTowns } from './index';
 /*
  Страница должна предварительно загрузить список городов из
  https://raw.githubusercontent.com/smelukov/citiesTest/master/cities.json
@@ -80,6 +80,7 @@ function loadTowns() {
  */
 function isMatching(full, chunk) {
     const res = (full.toLowerCase().indexOf(chunk.toLowerCase()) != -1) ? true : false;
+
     return res;
 }
 
@@ -96,15 +97,13 @@ filterInput.addEventListener('keyup', function() {
     // это обработчик нажатия кливиш в текстовом поле
 });
 
-
-
 loadTowns()
     .then((mas) => {
 
         const towns = [];
 
         for (let i=0; i<mas.length; i++) {
-          towns.push(mas[i].name);
+            towns.push(mas[i].name);
         }
 
         loadingBlock.style.display = 'none';  
@@ -119,16 +118,16 @@ loadTowns()
 
                 if (isMatching(towns[i], value)) {               
                     let div = document.createElement('div');
+
                     div.textContent = towns[i];
                     filterResult.appendChild(div);
-                    console.log(towns[i]);           
                 }
 
-              if (value ==='') {
-                filterResult.innerHTML = '';
-              }              
+                if (value ==='') {
+                    filterResult.innerHTML = '';
+                }              
             }
-          })
+        })
     })
         
 export {
