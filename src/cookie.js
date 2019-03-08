@@ -74,7 +74,7 @@ function addCookie() {
     let tr = document.createElement('tr');
     listTable.appendChild(tr);
 
-    let tdName = document.createElement('td');
+    let tdName = document.createElement('td'); 
     tr.appendChild(tdName);
     tdName.textContent = name[i];
     
@@ -105,13 +105,13 @@ function addCookie() {
   }
 }
 
-addCookie();
-
-addButton.addEventListener('click', () => {
-  // здесь можно обработать нажатие на кнопку "добавить cookie"
-  document.cookie = `${addNameInput.value}=${addValueInput.value}`;
   addCookie();
 
-  addNameInput.value = '';
-  addValueInput.value = '';
-});
+  addButton.addEventListener('click', () => {
+    // здесь можно обработать нажатие на кнопку "добавить cookie"
+    document.cookie = `${addNameInput.value}=${addValueInput.value}`;
+    addCookie();
+
+    addNameInput.value = '';
+    addValueInput.value = '';
+  });
