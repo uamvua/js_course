@@ -46,12 +46,14 @@ const listTable = homeworkContainer.querySelector('#list-table tbody');
 addCookie();
 
 function parseCookie(){
-  let result = document.cookie.split('; ').reduce((prev, current) => {
+    let result = document.cookie.split('; ').reduce((prev, current) => {
     const [name, value] = current.split('=');
-    prev[name] = value;   
+    prev[name] = value; 
+
     return prev;    
-  }, {});
-  return result;  
+    }, {});
+
+    return result;  
 };
 
 function isMatching(full, chunk) {
@@ -61,20 +63,21 @@ function isMatching(full, chunk) {
 }
 
 function filterCookie() {
-  let cook = parseCookie();
-  let length = Object.keys(cook).length;
-  let name = Object.keys(cook);
-  let cookies = new Object();
-  let value = filterNameInput.value;    
+    let cook = parseCookie();
+    let length = Object.keys(cook).length;
+    let name = Object.keys(cook);
+    let cookies = new Object();
+    let value = filterNameInput.value;    
 
-  for(let i=0; i<length; i++) {
-      if(isMatching(name[i], value) || isMatching(cook[name[i]], value)) {
-        cookies[name[i]] = cook[name[i]];     
-      } else if(value.length===0) {
-        cookies[name[i]] = cook[name[i]];
-      }
-} 
-return cookies;
+    for(let i=0; i<length; i++) {
+        if(isMatching(name[i], value) || isMatching(cook[name[i]], value)) {
+          cookies[name[i]] = cook[name[i]];     
+        } else if(value.length===0) {
+          cookies[name[i]] = cook[name[i]];
+        }
+    }
+
+    return cookies;
 }
 
 /*
@@ -92,33 +95,33 @@ filterNameInput.addEventListener('keyup', function() {
 });
   */
 function addCookie() {
-  let cookie = filterCookie();
-  let length = Object.keys(cookie).length;
-  let name = Object.keys(cookie);
+    let cookie = filterCookie();
+    let length = Object.keys(cookie).length;
+    let name = Object.keys(cookie);
 
-  listTable.textContent = '';
+    listTable.textContent = '';
 
-  for(let i=0; i<length; i++) {
-    let tr = document.createElement('tr');
-    listTable.appendChild(tr);
+    for(let i=0; i<length; i++) {
+        let tr = document.createElement('tr');
+        listTable.appendChild(tr);
 
-    let tdName = document.createElement('td'); 
-    tr.appendChild(tdName);
-    tdName.textContent = name[i];
-    
-    let tdValue = document.createElement('td');
-    tr.appendChild(tdValue);
-    tdValue.textContent = cookie[name[i]];
+        let tdName = document.createElement('td'); 
+        tr.appendChild(tdName);
+        tdName.textContent = name[i];
+        
+        let tdValue = document.createElement('td');
+        tr.appendChild(tdValue);
+        tdValue.textContent = cookie[name[i]];
 
-    const deleteButton = document.createElement('button');
-    tr.appendChild(deleteButton);
-    deleteButton.textContent = 'удалить';
+        const deleteButton = document.createElement('button');
+        tr.appendChild(deleteButton);
+        deleteButton.textContent = 'удалить';
 
-    deleteButton.addEventListener('click', () => {
-      listTable.removeChild(tr);
-      document.cookie = `${name[i]}=; expires=Thu, 01 Jan 2000 00:00:01 GMT;`;
-    });   
-  }
+        deleteButton.addEventListener('click', () => {
+        listTable.removeChild(tr);
+        document.cookie = `${name[i]}=; expires=Thu, 01 Jan 2000 00:00:01 GMT;`;
+        });   
+    }
 }
 
   filterNameInput.addEventListener('keyup', function() {
