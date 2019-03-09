@@ -66,13 +66,13 @@ function filterCookie() {
     let cook = parseCookie();
     let length = Object.keys(cook).length;
     let name = Object.keys(cook);
-    let cookies = new Object();
+    let cookies = {};
     let value = filterNameInput.value;    
 
     for(let i=0; i<length; i++) {
-        if(isMatching(name[i], value) || isMatching(cook[name[i]], value)) {
+        if (isMatching(name[i], value) || isMatching(cook[name[i]], value)) {
           cookies[name[i]] = cook[name[i]];     
-        } else if(value.length===0) {
+        } else if (value.length===0) {
           cookies[name[i]] = cook[name[i]];
         }
     }
@@ -100,8 +100,9 @@ function addCookie() {
     let name = Object.keys(cookie);
 
     listTable.textContent = '';
-
+    
     for(let i=0; i<length; i++) {
+        
         let tr = document.createElement('tr');
         listTable.appendChild(tr);
 
@@ -116,24 +117,21 @@ function addCookie() {
         const deleteButton = document.createElement('button');
         tr.appendChild(deleteButton);
         deleteButton.textContent = 'удалить';
-
+        
         deleteButton.addEventListener('click', () => {
         listTable.removeChild(tr);
         document.cookie = `${name[i]}=; expires=Thu, 01 Jan 2000 00:00:01 GMT;`;
-        });   
+        });
     }
 }
 
   filterNameInput.addEventListener('keyup', function() {
     // здесь можно обработать нажатия на клавиши внутри текстового поля для фильтрации cookie
-    addCookie();
+      addCookie();
   });
 
   addButton.addEventListener('click', () => {
     // здесь можно обработать нажатие на кнопку "добавить cookie"
     document.cookie = `${addNameInput.value}=${addValueInput.value}`;
-    addCookie();
-
-    addNameInput.value = '';
-    addValueInput.value = '';
+        addCookie();
   });
