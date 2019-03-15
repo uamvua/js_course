@@ -1,0 +1,80 @@
+*{
+    box-sizing: border-box;
+}
+
+@import url('https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500');
+
+.popup {
+    width: 380px;
+    display: block;
+    position: absolute;
+    z-index: 10;
+    background-color: #ffffff;
+    border-radius: 10px;
+    font-family: 'Fira Sans', sans-serif;
+}
+
+.popup__wrap {
+    padding: 0 15px 0 15px;
+}
+
+.popup__header {
+    height: 45px;
+    background-color: #ff8663;
+    border-radius: 10px 10px 0 0;
+    padding: 15px;
+    font-size: 12pt;
+    color: #ffffff;
+}
+
+.popup__reviews {
+    height: 155px;
+}
+
+.hr {
+   opacity: 0.1;
+}
+
+.form__reviews {
+    margin-top: 15px;
+}
+
+.form__title {
+    color: #ff8663;
+    font-size: 16pt;
+    margin-bottom: 15px;
+    font-weight: 500;
+}
+
+.form__input {
+    display: block;
+    width: 100%;
+    margin-top: 14px;
+    border-radius: 20px;
+    outline: none;
+    border: solid 1px #c4c4c4;
+    padding: 11px 15px;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 300;
+    font-size: 15pt;
+    color: #9f9f9f;
+}
+
+.reviews-text {
+    resize: none;
+    height: 130px;
+}
+
+.button__add {
+    padding: 10px 17px;
+    margin: 15px 0 15px 0;
+    border-radius: 10px;
+    border: none;
+    background-color: #ff8663;
+    color: #ffffff;
+    margin-left: auto;
+    margin-right: 0;
+    display: block;
+    font-family: 'Fira Sans', sans-serif;
+    font-weight: 300;  
+}
