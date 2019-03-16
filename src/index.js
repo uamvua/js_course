@@ -1,9 +1,9 @@
 import './css/style.css';
-console.log(111);
 
 import { initMap } from './js/ymaps';
 
  window.onload = initMap();
+ 
 /*
 import render from './templates/friends.hbs';
 
