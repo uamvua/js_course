@@ -1,3 +1,6 @@
+import { popupOpen } from './popup'
+
+let popupForm = document.querySelector('.popup');
 function initMap() {
   ymaps.ready(() => {
       var myPlacemark;
@@ -8,6 +11,23 @@ function initMap() {
 
     myMap.events.add('click', function (e) {
       var coords = e.get('coords');
+      var coordMouse = e.get('position');
+
+      detectCoord();
+
+      function detectCoord() {
+        let [posX, posY] = [...coordMouse];
+        console.log(posX);
+        console.log(posY);
+
+        popupForm.style.display='block';
+        popupForm.style.top = `${posY}px`;
+        popupForm.style.left = `${posX}px`;
+
+        popupOpen(coords);
+        getAddress(coords);
+      }
+      
 
       // Если нет – создаем.      
         myPlacemark = createPlacemark(coords);
@@ -16,9 +36,22 @@ function initMap() {
         myPlacemark.events.add('dragend', function () {
             getAddress(myPlacemark.geometry.getCoordinates());
         });      
-      getAddress(coords);
+       
+
+        myPlacemark.events.add('click', function () {
+          coords = e.get('coords');
+          coordMouse = e.get('position');
+          detectCoord()
+        });
+
       });
 
+     
+    }); 
+
+     
+  }
+  
   // Создание метки.
     function createPlacemark(coords) {
       return new ymaps.Placemark(coords,  {
@@ -43,10 +76,7 @@ function initMap() {
           adress.textContent = firstGeoObject.getAddressLine();
       });
     }
-  });
-}
-
-
+ 
 export {
   initMap
 }

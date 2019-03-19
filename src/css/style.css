@@ -8,7 +8,7 @@
 
 .popup {
     width: 380px;
-    display: block;
+    display: none;
     position: absolute;
     z-index: 10;
     background-color: #ffffff;
@@ -62,6 +62,7 @@
 
 .popup__wrap {
     padding: 0 15px 0 15px;
+    margin-top: 15px;
 }
 
 .popup__reviews {
@@ -94,7 +95,6 @@
     font-family: 'Fira Sans', sans-serif;
     font-weight: 300;
     font-size: 15pt;
-    color: #9f9f9f;
 }
 
 .reviews-text {

@@ -1,14 +1,11 @@
 import './css/style.css';
 
-import { initMap } from './js/ymaps';
+import { initMap } from './js/ymaps'
 
- window.onload = initMap();
+window.onload = initMap();
  
+
 /*
-import render from './templates/friends.hbs';
-
-const map = document.querySelector('#map');
-
 const list = [
   {
     name: 'Иван',
@@ -50,7 +47,5 @@ const list = [
     name: 'Оля',
     last_name: 'Иванов',
   }
-];
+]; */
 
-map.innerHTML = render({list});
-*/

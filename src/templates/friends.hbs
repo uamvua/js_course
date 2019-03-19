@@ -1,3 +1,8 @@
-{{#each list}}
-  <div class="name">{{ name }} {{ last_name }}</div>
+{{#each apidata}}
+  <div class="popup__item">
+    <span class="popup__item-name">{{userName}}</span> 
+    <span class="popup__item-place">{{place}}</span>
+    <span class="popup__item-date"> {{dataRev}} </span>
+    <div class="popup__item-reviews"> {{reviews}} </div>   
+  </div>
 {{/each}} 
