@@ -32,17 +32,15 @@ function popupOpen(coord) {
         e.preventDefault();
         masResult = masRev();
         console.log(masResult);
-        popupReviewsList.innerHTML = render({apidata: masResult});        
+        popupReviewsList.innerHTML = render({apidata: masResult}); 
+        userName.value = '';
+        place.value = '';
+        reviews.value = '';       
     });
 
    if (!reviews.length) {
         popupReviewsList.textContent = 'Нет отзывов...'
-   }
-   
-    userName.value = '';
-    place.value = '';
-    reviews.value = ''; 
-   
+   }   
 }
 
 

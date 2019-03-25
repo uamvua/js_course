@@ -37,6 +37,7 @@ function initMap() {
             getAddress(myPlacemark.geometry.getCoordinates());
         });      
        
+        console.log(myPlacemark.properties);
 
         myPlacemark.events.add('click', function () {
           coords = e.get('coords');
@@ -45,19 +46,21 @@ function initMap() {
         });
 
       });
-
      
     }); 
-
      
   }
   
   // Создание метки.
     function createPlacemark(coords) {
       return new ymaps.Placemark(coords,  {
+          //hintContent: popup.children[номер].innerHTML,
+         // balloonContent: obj.address + popup.children[номер].innerHTML
+        }, {
           preset: 'islands#violetDotIcon',
+          openHintOnHover: false,
           draggable: false
-      });
+      })
     }
 
   // Определяем адрес по координатам (обратное геокодирование).
