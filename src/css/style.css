@@ -5,6 +5,9 @@
 }
 
 @import url('https://fonts.googleapis.com/css?family=Fira+Sans:300,400,500');
+body {
+    position: relative;
+}
 
 .popup {
     width: 380px;
@@ -67,6 +70,30 @@
 
 .popup__reviews {
     height: 155px;
+    overflow: auto;
+}
+
+.popup__item-name {
+    font-weight: 500;
+    font-size: 16pt;
+}
+
+.popup__item-place {
+    font-weight: 400;
+    color: #4f4f4f;
+    font-size: 16pt;
+}
+
+.popup__item-date {
+    font-weight: 400;
+    color: #4f4f4f;
+    font-size: 14pt;
+}
+
+.popup__item-reviews {
+    font-size: 15pt;
+    color: #4f4f4f;
+    font-weight: 400;
 }
 
 .hr {
