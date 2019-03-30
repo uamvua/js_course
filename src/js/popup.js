@@ -1,59 +1,44 @@
-import render from '../templates/friends.hbs'
-   
-    let popupClose = document.querySelector('.popup__close');
-    let popup = document.querySelector('.popup');    
+import render from '../templates/friends.hbs'        
 
 function popupOpen(obj, myMap, coordMouse, clusterer, hintContent) {
-    let popupReviewsList = document.querySelector('.popup__list');    
+    console.log('start');
+    let popupReviewsList = document.querySelector('.popup__list');
+    let adress = document.querySelector('.popup__header-adress');
+    let popup = document.querySelector('.popup');
+    let popupClose = document.querySelector('.popup__close');
     
-    let [posX, posY] = [...coordMouse];
-      console.log(posX);
-      console.log(posY);
+    adress.textContent = obj.adress;
   
-     popup.style.display='block';
-     popup.style.top = `${posY}px`;
-     popup.style.left = `${posX}px`;      
+    let [posX, posY] = [...coordMouse];
+    console.log(posX);
+    console.log(posY);
+  
+    popup.style.display='block';
+    popup.style.top = `${posY}px`;
+    popup.style.left = `${posX}px`;      
        
     popupClose.addEventListener('click', ()=> {
- popup.style.display='none';    
-   });
-
-   dragAnddrop()
-
-  
-/*
-    function masRev() {        
-    data.userName = userName.value;
-    data.place = place.value;
-    data.reviews = reviews.value;   
-    data.dataRev = new Date().toLocaleDateString();
-    data.coords = coord;
-    mas.push(data);
-    data = {};
-    return (mas);
-   }   
-  
-    addButton.addEventListener('click', (e)=> {
-        e.preventDefault();
-        masResult = masRev();
-        console.log(masResult);
-        popupReviewsList.innerHTML = render({apidata: masResult});        
+       hidePopup(obj, popup);
     });
 
-    //createPlacemark(obj, myMap, coordMouse, clusterer, popupReviewsList);
-*/
-    
-   /*
-    userName.value = '';
-    place.value = '';
-    reviews.value = '';
-*/
-    popupReviewsList
+    clusterer.balloon.events.add('open', function (e) {
+       hidePopup(obj, popup);
+    });
 
-    addFeedback(obj, myMap, coordMouse, clusterer, popupReviewsList, hintContent);
-    
+    DnD(popup);
+
+    addFeedback(obj, myMap, coordMouse, clusterer, popupReviewsList, hintContent);     
 }
 
+function hidePopup(obj, popup) {
+    popup.style.display='none';
+    obj.coords[0] = '';
+    obj.coords[1] = '';
+    obj.comments = [];
+    document.querySelector('.user-name').value = '';
+    document.querySelector('.place').value = '';
+    document.querySelector('.reviews-text').value = '';  
+}
 
 function addFeedback(obj, myMap, coordMouse, clusterer, popupReviewsList, hintContent) {
     let data = {};
@@ -61,15 +46,14 @@ function addFeedback(obj, myMap, coordMouse, clusterer, popupReviewsList, hintCo
     let userName = document.querySelector('.user-name');
     let addButton = document.querySelector('.button__add');
     let place = document.querySelector('.place');
-    let reviews = document.querySelector('.reviews-text');    
+    let reviews = document.querySelector('.reviews-text');  
    
     popupReviewsList.innerHTML = hintContent;
-    console.log('HINT ' + hintContent);
-/*
-    if (!reviews.length) {
-        popupReviewsList.textContent = 'Нет отзывов...'
+
+    if (popupReviewsList.innerHTML == 0) {
+        popupReviewsList.innerHTML = 'Нет отзывов...'
     }
-    */
+
     addButton.addEventListener('click', (e)=> {       
         e.preventDefault();
         if ((userName.value && place.value && reviews.value) === '') {
@@ -77,56 +61,64 @@ function addFeedback(obj, myMap, coordMouse, clusterer, popupReviewsList, hintCo
             return;
         };
         data = {};
-        console.log('клик');
         data.coords = obj.coords,
         data.adress = obj.adress,      
         data.userName = userName.value;
         data.place = place.value;
         data.reviews = reviews.value;       
-        data.dataRev = new Date().toLocaleDateString();
-        
+        data.dataRev = new Date().toLocaleString();        
         //mas.push(data);
         obj.comments.push(data);
-        console.log(obj.comments);
         let arr =  obj.comments;
+        console.log(obj.comments);        
         popupReviewsList.innerHTML = render({arr});
-        //console.log( 'popupReviewsList.innerHTML ' + popupReviewsList.innerHTML);
-        /*
+       /*
         userName.value = '';
         place.value = '';
-        reviews.value = '';
-        */      
-        createPlacemark(obj, myMap, coordMouse, clusterer, popupReviewsList, data);       
+        reviews.value = '';                
+        */ 
+        setTimeout(() => {
+            userName.value = '';
+            place.value = '';
+            reviews.value = '';         
+        }, 50)
+
+        createPlacemark(obj, myMap, coordMouse, clusterer, popupReviewsList, data);
+        
     });       
 }
 
 function createPlacemark(obj, myMap, coordMouse, clusterer, popupReviewsList, data) {
-    let popupItemPlace = document.querySelector('.popup__item-place');
+    console.log('Метка создана');
     var myPlacemark = new ymaps.Placemark(obj.coords, {
         hintContent: popupReviewsList.children[0].innerHTML,
-        //popupoonContent: obj.adress + popupReviewsList.children[0].innerHTML,
-        baloonContentName: data.userName,
-        baloonContentAdress: data.adress,
-        popupoonContentBody: data.reviews,
-        popupoonContentHeader: data.place,
-        popupoonContentFooter: data.dataRev
+        balloonContentName: data.userName,
+        balloonContentAdress: data.adress,
+        balloonContentBody: data.reviews,
+        balloonContentHeader: data.place,
+        balloonContentFooter: data.dataRev,
+        balloonContentCoords: data.coords
 
     }, {
         preset: 'islands#violetDotIcon',
         openHintOnHover: false,
-        draggable: false
+        draggable: false,
+        hideIconOnBalloonOpen: false,
+        hasBalloon: false
     });    
-    console.log(myPlacemark.properties);
+
     myMap.geoObjects.add(myPlacemark);
-    clusterer.add(myPlacemark);   
+    clusterer.add(myPlacemark);
     
     myPlacemark.events.add('click', () => {
+        console.log('_data.hintContent ' + myPlacemark.properties._data.hintContent);
+        console.log(obj.coords);
         popupOpen(obj, myMap, coordMouse, clusterer, myPlacemark.properties._data.hintContent);
-        });
+        });        
     }
 
-    function dragAnddrop() {
-        let popupHeader = document.querySelector('.popup__header');
+    function DnD(popup) {
+        let popupHeader = document.querySelector('.popup__header-adress');
         popupHeader.onmousedown = function(e) {
 
             var coords = getCoords(popup);
@@ -165,11 +157,9 @@ function createPlacemark(obj, myMap, coordMouse, clusterer, popupReviewsList, da
               top: box.top + pageYOffset,
               left: box.left + pageXOffset
             };
-          }
+        }
     }
 
-    
-
 export {
-    popupOpen
+    popupOpen    
 }
