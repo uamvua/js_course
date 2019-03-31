@@ -38,7 +38,7 @@ function initMap() {
       var coords = e.get('coords');
       var coordMouse = e.get('position');
       
-      console.log(coords, coordMouse);
+      //console.log(coords, coordMouse);
       getAddress(myMap, coordMouse, clusterer, coords);
     });
   });     
@@ -51,6 +51,7 @@ function initMap() {
           var firstGeoObject = res.geoObjects.get(0);
           let obj = {};
           obj.coords = coords;
+          console.log('координаты по клику ' + obj.coords)
           obj.adress = firstGeoObject.getAddressLine();
           obj.comments = [];
           popupOpen(obj, myMap, coordMouse, clusterer, ' ');

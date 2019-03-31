@@ -10,31 +10,32 @@ function popupOpen(obj, myMap, coordMouse, clusterer, hintContent) {
     adress.textContent = obj.adress;
   
     let [posX, posY] = [...coordMouse];
-    console.log(posX);
-    console.log(posY);
+    //console.log(posX);
+    //console.log(posY);
   
     popup.style.display='block';
     popup.style.top = `${posY}px`;
-    popup.style.left = `${posX}px`;      
-       
-    popupClose.addEventListener('click', ()=> {
-       hidePopup(obj, popup);
-    });
-
+    popup.style.left = `${posX}px`;        
+/*
     clusterer.balloon.events.add('open', function (e) {
        hidePopup(obj, popup);
     });
-
+*/
     DnD(popup);
 
-    addFeedback(obj, myMap, coordMouse, clusterer, popupReviewsList, hintContent);     
+    addFeedback(obj, myMap, coordMouse, clusterer, popupReviewsList, hintContent);
+    
+    popupClose.addEventListener('click', ()=> {
+        hidePopup(obj, popup);
+        console.log(obj.comments);
+     });    
 }
 
 function hidePopup(obj, popup) {
     popup.style.display='none';
-    obj.coords[0] = '';
-    obj.coords[1] = '';
-    obj.comments = [];
+    //obj.coords[0] = '';
+    //obj.coords[1] = '';
+    //obj.comments = [];
     document.querySelector('.user-name').value = '';
     document.querySelector('.place').value = '';
     document.querySelector('.reviews-text').value = '';  
@@ -61,8 +62,8 @@ function addFeedback(obj, myMap, coordMouse, clusterer, popupReviewsList, hintCo
             return;
         };
         data = {};
-        data.coords = obj.coords,
-        data.adress = obj.adress,      
+        data.adress = obj.adress;
+        data.coords = obj.coords;     
         data.userName = userName.value;
         data.place = place.value;
         data.reviews = reviews.value;       
@@ -70,7 +71,9 @@ function addFeedback(obj, myMap, coordMouse, clusterer, popupReviewsList, hintCo
         //mas.push(data);
         obj.comments.push(data);
         let arr =  obj.comments;
-        console.log(obj.comments);        
+        console.log('Клик по кнопке добавить ');
+        console.log(obj.comments);       
+     
         popupReviewsList.innerHTML = render({arr});
        /*
         userName.value = '';
@@ -90,6 +93,8 @@ function addFeedback(obj, myMap, coordMouse, clusterer, popupReviewsList, hintCo
 
 function createPlacemark(obj, myMap, coordMouse, clusterer, popupReviewsList, data) {
     console.log('Метка создана');
+    console.log('data ' + obj.coords);
+
     var myPlacemark = new ymaps.Placemark(obj.coords, {
         hintContent: popupReviewsList.children[0].innerHTML,
         balloonContentName: data.userName,
@@ -105,11 +110,11 @@ function createPlacemark(obj, myMap, coordMouse, clusterer, popupReviewsList, da
         draggable: false,
         hideIconOnBalloonOpen: false,
         hasBalloon: false
-    });    
+    });   
 
     myMap.geoObjects.add(myPlacemark);
     clusterer.add(myPlacemark);
-    
+        
     myPlacemark.events.add('click', () => {
         console.log('_data.hintContent ' + myPlacemark.properties._data.hintContent);
         console.log(obj.coords);
